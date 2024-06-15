@@ -1,119 +1,156 @@
-# Game Design Document (GDD) Template
+# Game Design Document (GDD) Pong
 
 ## Game Overview
 
-**Game Title:**
+**Game Title:** Pong Lua
 
-**Genre:**
+**Genre:** Arcade
 
-**References:**
+**References:** Pong
 
-**Brief Summary:**
+**Brief Summary:** 
+Based on the original Pong game, is a two-dimensional table tennis game where two players control paddles on either side of the screen. The objective is to score points by hitting the ball past the opponent's paddle.
 
 ## Gameplay Mechanics
 
 **Core Mechanics:**
 
-*The primary gameplay mechanics (movement, combat, puzzle-solving, etc.)*
+Paddles can move up and down, ball move diagonally
 
 **Controls:**
 
-*The controls for different platforms (keyboard, gamepad, etc.)*
+- Player 1 (Left Paddle):
+    - Move Up: W
+    - Move Down: S
+- Player 2 (Right Paddle):
+    - Move Up: Up Arrow
+    - Move Down: Down Arrow
 
 **Objectives:**
 
-*Outline the main objectives and goals for the player*
+Hit the ball every time it is on your side and try to make your opponent miss the ball to score a point.
 
 **Progression:**
 
-*Explain how the player progresses through the game (levels, experience
-points, etc.)*
+You get point every time the opponent miss the ball
 
 ## Story
 
 **Story:**
 
-*A brief synopsis of the game’s story*
+N/A
 
 **Characters:**
 
-*The main characters and their roles in the story*
+N/A
 
 ## NPC
 
 **Enemies:**
 
-*Enemies and their role*
+N/A
 
 **Friendly Characters:**
 
-*Friendly characters and their role*
+N/A
 
 ## Art Style and Assets
 
 **Visual Style:**
 
-*The overall visual aesthetic (pixel art, 3D, hand-drawn, etc.)*
+Board 2D
 
 **Sprites/Models:**
 
-*Main sprites, models or shapes needed (characters, enemies, items, etc.)*
+N/A
 
 **UI Elements:**
 
-*The user interface components (menus, HUD, buttons)*
+Menu
 
 ## Audio
 
 **Music:**
 
-*The type of background music and key tracks*
+background music
 
 **Sound Effects:**
 
-*The sound effects needed (e.g., footsteps, weapon sounds, ambient sounds)*
+- Hitting the ball
+- Scoring a point
 
 ## Technical Specifications
 
 **Development Tools:**
 
-*The tools and frameworks used*
+LÖVE
 
 **Code Structure:**
 
-*Main components of the project*
+- Main
+- Paddle
+- Ball
+- Score
 
 ## Level Design
 
 **Level Layouts:**
 
-*The layout of each level or area*
+N/A
 
 **Pacing:**
 
-*Explain the pacing and flow of each level, how the difficulty increases with
-each level*
+N/A
 
 ## User Interface (UI)
 
 **Main Menu:**
 
-*The main menu layout and options*
+- New Game
+- Quit
 
 **In-Game HUD:**
 
-*Outline the heads-up display elements (health bar, score, timer, minimap)*
+- Timer
+- Score 
 
 **Pause/Options Menu:**
 
-*The layout and functionality of the pause/options menu*
+- Restart
+- Resume
+- Quit
 
 ## Development Timeline
 
-**Development steps:**
+**Development Steps:**
 
-*Main steps*
+- Step 1:
+    Template
+
+- Step 2:
+    Menu screen
+
+- Step 3:
+    Game screen
+
+- Step 4:
+    Paddles
+
+- Step 5:
+    Ball
+
+- Step 6:
+    Collision with wall and Paddles
+  
+- Step 7:
+    Points
+
+- Step 8:
+    Pause, reset and end game
+
+- Step 9:
+    Music and sound effects
 
 **Weekly Goals:**
 
-*Outline weekly development goals and tasks*
+- *Outline weekly development goals and tasks.*
