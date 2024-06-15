@@ -2,7 +2,7 @@
 
 ## Setup
 
-### Framekwork
+### Framework
 
 Make sure you have [LÖVE](https://love2d.org/) installed.
 
