@@ -1,0 +1,3 @@
+[submodule "splash-screen"]
+	path = splash-screen
+	url = git@github.com:cadin-org/splash-screen.git
