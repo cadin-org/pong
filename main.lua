@@ -1,4 +1,4 @@
-Splash = require 'splash-screen'
+local splash = require 'splash-screen'
 
 function love.load()
   local r, g, b = love.math.colorFromBytes(24, 24, 37)
@@ -8,11 +8,11 @@ function love.load()
   local fira_mono = love.graphics.newFont(font_asset_path, 48)
   love.graphics.setFont(fira_mono)
 
-  Splash.new(Splash, 400, 400)
+  splash.new(400, 400)
 end
 
 function love.draw()
   local time = love.timer.getTime()
 
-  Splash.start(Splash, time)
+  splash.start(time)
 end
