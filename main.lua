@@ -1,5 +1,6 @@
 local splash = require 'splash-screen'
-local Paddle = require 'paddle'
+local Paddle = require 'componets.paddle'
+local menu = require 'componets.menu'
 
 local paddles = {
   Paddle(0, (love.graphics.getHeight() / 2) - 50),
@@ -15,6 +16,8 @@ function love.load()
   love.graphics.setFont(fira_mono)
 
   splash.new(400, 400)
+
+  menu.load()
 end
 
 function love.update()
@@ -28,7 +31,11 @@ function love.draw()
   splash.start(time)
 
   if time >= 10 then
-    paddles[1]:draw()
-    paddles[2]:draw()
+    if menu.game_states.standard then
+      menu.draw()
+    else
+      paddles[1]:draw()
+      paddles[2]:draw()
+    end
   end
 end
