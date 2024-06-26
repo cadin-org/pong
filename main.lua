@@ -1,4 +1,10 @@
 local splash = require 'splash-screen'
+local Paddle = require 'paddle'
+
+local paddles = {
+  Paddle(0, (love.graphics.getHeight() / 2) - 50),
+  Paddle(love.graphics.getWidth() - 20, (love.graphics.getHeight() / 2) - 50),
+}
 
 function love.load()
   local r, g, b = love.math.colorFromBytes(24, 24, 37)
@@ -11,8 +17,18 @@ function love.load()
   splash.new(400, 400)
 end
 
+function love.update()
+  paddles[1]:move('w', 's')
+  paddles[2]:move('up', 'down')
+end
+
 function love.draw()
   local time = love.timer.getTime()
 
   splash.start(time)
+
+  if time >= 10 then
+    paddles[1]:draw()
+    paddles[2]:draw()
+  end
 end
