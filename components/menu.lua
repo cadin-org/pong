@@ -1,4 +1,4 @@
-local Button = require 'componets.button'
+local Button = require 'components.button'
 local menu = {}
 
 menu.game_states = {
@@ -30,10 +30,8 @@ function love.mousepressed(x, y, button)
 end
 
 function menu.draw()
-  if menu.game_states.standard then
-    buttons.play:draw(10, 20, 25, 10)
-    buttons.exit:draw(10, 110, 25, 10)
-  end
+  buttons.play:draw(10, 20, 25, 10)
+  buttons.exit:draw(10, 110, 25, 10)
 end
 
 return menu

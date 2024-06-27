@@ -1,6 +1,6 @@
 local splash = require 'splash-screen'
-local Paddle = require 'componets.paddle'
-local menu = require 'componets.menu'
+local Paddle = require 'components.paddle'
+local menu = require 'components.menu'
 
 local paddles = {
   Paddle(0, (love.graphics.getHeight() / 2) - 50),
