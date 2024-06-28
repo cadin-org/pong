@@ -4,7 +4,7 @@ function Paddle(x, y)
     x = x,
     y = y,
     move = function(self, up, down)
-      if love.keyboard.isDown(up) and self.y > 0 then
+      if love.keyboard.isDown(up) and self.y > 40 then
         self.y = self.y - speed
       end
       if love.keyboard.isDown(down) and self.y < love.graphics.getHeight() - 100 then

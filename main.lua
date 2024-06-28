@@ -1,6 +1,7 @@
 local splash = require 'splash-screen'
 local Paddle = require 'components.paddle'
 local menu = require 'components.menu'
+local game_screen = require 'components.game-screen'
 
 local paddles = {
   Paddle(0, (love.graphics.getHeight() / 2) - 50),
@@ -34,6 +35,7 @@ function love.draw()
     if menu.game_states.standard then
       menu.draw()
     else
+      game_screen.draw()
       paddles[1]:draw()
       paddles[2]:draw()
     end
