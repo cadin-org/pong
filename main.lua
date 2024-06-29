@@ -2,6 +2,7 @@ local splash = require 'splash-screen'
 local Paddle = require 'components.paddle'
 local menu = require 'components.menu'
 local game_screen = require 'components.game-screen'
+local ball = require 'components.ball'
 
 local paddles = {
   Paddle(0, (love.graphics.getHeight() / 2) - 50),
@@ -21,9 +22,10 @@ function love.load()
   menu.load()
 end
 
-function love.update()
+function love.update(dt)
   paddles[1]:move('w', 's')
   paddles[2]:move('up', 'down')
+  ball.move(dt)
 end
 
 function love.draw()
@@ -36,6 +38,7 @@ function love.draw()
       menu.draw()
     else
       game_screen.draw()
+      ball.draw()
       paddles[1]:draw()
       paddles[2]:draw()
     end
