@@ -3,6 +3,7 @@ function Paddle(x, y)
   return {
     x = x,
     y = y,
+    score = 0,
     move = function(self, up, down)
       if love.keyboard.isDown(up) and self.y > 40 then
         self.y = self.y - speed
