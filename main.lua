@@ -23,14 +23,15 @@ function love.load()
 end
 
 function love.update(dt)
-  paddles[1]:move('w', 's')
-  paddles[2]:move('up', 'down')
-  ball.move(dt)
+  if menu.game_states.playing then
+    paddles[1]:move('w', 's')
+    paddles[2]:move('up', 'down')
+    ball.move(paddles[1], paddles[2], dt)
+  end
 end
 
 function love.draw()
   local time = love.timer.getTime()
-
   splash.start(time)
 
   if time >= 10 then
