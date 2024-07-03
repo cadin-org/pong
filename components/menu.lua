@@ -1,4 +1,4 @@
-local MenuOption = require 'components.button'
+local MenuOption = require 'components.menu-option'
 local menu = {}
 
 menu.game_states = {
