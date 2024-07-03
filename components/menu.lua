@@ -1,4 +1,8 @@
 local MenuOption = require 'components.menu-option'
+
+local x_center = love.graphics.getWidth() / 2
+local y_center = love.graphics.getHeight() / 2
+
 local menu = {}
 
 menu.game_states = {
@@ -7,9 +11,6 @@ menu.game_states = {
   playing = false,
   gameover = false,
 }
-
-local x_center = love.graphics.getWidth() / 2
-local y_center = love.graphics.getHeight() / 2
 
 function menu.change_state(state)
   menu.game_states.standard = state == 'standard'
@@ -22,10 +23,10 @@ local menu_options = {}
 
 function menu.load()
   local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
-  local menu_font = love.graphics.newFont(menu_font_path, 32)
+  local menu_font = love.graphics.newFont(menu_font_path, 24)
 
-  menu_options.play = MenuOption('Play', menu_font, true, menu.change_state, 'playing', 200, 40)
-  menu_options.exit = MenuOption('Exit', menu_font, false, love.event.quit, nil, 200, 40)
+  menu_options.play = MenuOption('Play', menu_font, true, menu.change_state, 'playing')
+  menu_options.exit = MenuOption('Exit', menu_font, false, love.event.quit, nil)
 end
 
 function love.keypressed(key)
@@ -42,8 +43,8 @@ function love.keypressed(key)
 end
 
 function menu.draw()
-  menu_options.play:draw(x_center - 50, y_center - 40)
-  menu_options.exit:draw(x_center - 50, y_center + 40)
+  menu_options.play:draw(x_center - 50, y_center - 24)
+  menu_options.exit:draw(x_center - 50, y_center + 24)
 end
 
 return menu

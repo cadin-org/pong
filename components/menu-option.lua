@@ -1,19 +1,12 @@
-function MenuOption(text, font, is_highlighted, func, arg, width, height)
+function MenuOption(text, font, is_highlighted, func, arg)
   return {
     text = text or 'No Text',
     font = font or love.graphics.getFont(),
     is_highlighted = is_highlighted or false,
     func = func or function()
-      print 'No function assigned to button'
+      print 'No function assigned'
     end,
     arg = arg,
-    width = width or 300,
-    height = height or 100,
-
-    button_x = 0,
-    button_y = 0,
-    text_x = 0,
-    text_y = 0,
 
     shift_highlight = function(self)
       self.is_highlighted = not self.is_highlighted
@@ -27,16 +20,13 @@ function MenuOption(text, font, is_highlighted, func, arg, width, height)
 
     draw = function(self, text_x, text_y)
       if self.is_highlighted then
+        love.graphics.setColor(0.8, 0.8, 0.8)
         love.graphics.print('>', self.font, text_x - 50, text_y)
+        love.graphics.print(self.text, self.font, text_x, text_y)
+      else
+        love.graphics.setColor(0.6, 0.6, 0.6)
+        love.graphics.print(self.text, self.font, text_x, text_y)
       end
-
-      self.text_x = text_x + self.button_x
-      self.text_y = text_y + self.button_y
-
-      love.graphics.setColor(1, 1, 1)
-      love.graphics.print(self.text, self.font, self.text_x, self.text_y)
-
-      love.graphics.setColor(1, 1, 1)
     end,
   }
 end
