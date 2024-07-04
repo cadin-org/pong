@@ -53,9 +53,9 @@ end
 
 function love.draw()
   local time = love.timer.getTime()
-  splash.start(time)
+  -- splash.start(time)
 
-  if time >= 10 then
+  if time >= 0 then
     if menu.game_states.standard then
       menu.draw()
     else

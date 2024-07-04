@@ -1,8 +1,5 @@
 local MenuOption = require 'components.menu-option'
 
-local x_center = love.graphics.getWidth() / 2
-local y_center = love.graphics.getHeight() / 2
-
 local menu = {}
 
 menu.game_states = {
@@ -19,32 +16,48 @@ function menu.change_state(state)
   menu.game_states.gameover = state == 'gameover'
 end
 
-local menu_options = {}
-
 function menu.load()
   local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
   local menu_font = love.graphics.newFont(menu_font_path, 24)
 
-  menu_options.play = MenuOption('Play', menu_font, true, menu.change_state, 'playing')
-  menu_options.exit = MenuOption('Exit', menu_font, false, love.event.quit, nil)
+  menu_options = {
+    MenuOption:new('1 Player', menu_font, menu.change_state, 'playing', true),
+    MenuOption:new('2 Players', menu_font, menu.change_state, 'playing', false),
+    MenuOption:new('Exit', menu_font, love.event.quit, nil, false),
+  }
 end
 
 function love.keypressed(key)
   if key == 'return' then
-    menu_options.play:select_option_if_highlighted()
-    menu_options.exit:select_option_if_highlighted()
-  elseif IS_DOWN_KEY(key) and menu_options.play.is_highlighted then
-    menu_options.play:shift_highlight()
-    menu_options.exit:shift_highlight()
-  elseif IS_UP_KEY(key) and menu_options.exit.is_highlighted then
-    menu_options.play:shift_highlight()
-    menu_options.exit:shift_highlight()
+    for idx = 1, #menu_options, 1 do
+      if menu_options[idx].is_hl then
+        menu_options[idx]:select_option()
+        break
+      end
+    end
+  elseif IS_DOWN_KEY(key) then
+    for idx = 1, #menu_options - 1, 1 do
+      if menu_options[idx].is_hl then
+        menu_options[idx]:shift_hl()
+        menu_options[idx + 1]:shift_hl()
+        break
+      end
+    end
+  elseif IS_UP_KEY(key) then
+    for idx = 2, #menu_options, 1 do
+      if menu_options[idx].is_hl then
+        menu_options[idx]:shift_hl()
+        menu_options[idx - 1]:shift_hl()
+        break
+      end
+    end
   end
 end
 
 function menu.draw()
-  menu_options.play:draw(x_center - 50, y_center - 24)
-  menu_options.exit:draw(x_center - 50, y_center + 24)
+  menu_options[1]:draw(-2)
+  menu_options[2]:draw(0)
+  menu_options[3]:draw(2)
 end
 
 return menu
