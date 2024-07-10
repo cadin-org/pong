@@ -10,6 +10,26 @@ local paddles = {
   Paddle(love.graphics.getWidth() - 20, (love.graphics.getHeight() / 2) - 50),
 }
 
+function IS_UP_KEY(key)
+  local keys_table = { 'k', 'w', 'up' }
+  for _, up_key in pairs(keys_table) do
+    if key == up_key then
+      return true
+    end
+  end
+  return false
+end
+
+function IS_DOWN_KEY(key)
+  local keys_table = { 'j', 's', 'down' }
+  for _, down_key in pairs(keys_table) do
+    if key == down_key then
+      return true
+    end
+  end
+  return false
+end
+
 function love.load()
   local r, g, b = love.math.colorFromBytes(24, 24, 37)
   love.graphics.setBackgroundColor(r, g, b)
@@ -33,9 +53,9 @@ end
 
 function love.draw()
   local time = love.timer.getTime()
-  splash.start(time)
+  -- splash.start(time)
 
-  if time >= 10 then
+  if time >= 0 then
     if menu.game_states.standard then
       menu.draw()
     else
