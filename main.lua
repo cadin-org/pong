@@ -6,8 +6,8 @@ local ball = require 'components.ball'
 local scoreboard = require 'components.scoreboard'
 
 local paddles = {
-  Paddle(0, (love.graphics.getHeight() / 2) - 50),
-  Paddle(love.graphics.getWidth() - 20, (love.graphics.getHeight() / 2) - 50),
+  Paddle:new(0, (love.graphics.getHeight() / 2) - 50),
+  Paddle:new(love.graphics.getWidth() - 20, (love.graphics.getHeight() / 2) - 50),
 }
 
 function IS_UP_KEY(key)
