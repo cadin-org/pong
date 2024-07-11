@@ -10,10 +10,6 @@ local paddles = {
   Paddle:new(love.graphics.getWidth() - 20, (love.graphics.getHeight() / 2) - 50),
 }
 
-local balls = {
-  ball:new(),
-}
-
 function IS_UP_KEY(key)
   local keys_table = { 'k', 'w', 'up' }
   for _, up_key in pairs(keys_table) do
@@ -51,7 +47,7 @@ function love.update(dt)
   if menu.game_states.playing then
     paddles[1]:move('w', 's')
     paddles[2]:move('up', 'down')
-    balls[1]:move(paddles[1], paddles[2], dt)
+    ball.move(paddles[1], paddles[2], dt)
   end
 end
 
@@ -64,7 +60,7 @@ function love.draw()
       menu.draw()
     else
       game_screen.draw()
-      balls[1]:draw()
+      ball.draw()
       paddles[1]:draw()
       paddles[2]:draw()
       scoreboard.draw(paddles[1], paddles[2])
