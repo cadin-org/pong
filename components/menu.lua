@@ -52,6 +52,11 @@ function love.keypressed(key)
       end
     end
   end
+  if key == 'p' and menu.game_states.pause then
+    menu.change_state 'playing'
+  elseif key == 'p' then
+    menu.change_state 'pause'
+  end
 end
 
 function menu.draw()

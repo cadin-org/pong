@@ -59,6 +59,7 @@ function love.draw()
     if menu.game_states.standard then
       menu.draw()
     else
+      love.graphics.printf('press "p" to pause the game', love.graphics.newFont(15), 0, 10, love.graphics.getWidth(), 'center')
       game_screen.draw()
       ball.draw()
       paddles[1]:draw()
