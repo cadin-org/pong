@@ -27,35 +27,32 @@ function menu.load()
   }
 end
 
-function love.keypressed(key)
-  if key == 'return' then
-    for idx = 1, #menu_options, 1 do
-      if menu_options[idx].is_hl then
-        menu_options[idx]:select_option()
-        break
+function menu.keypressed(key)
+  if menu.game_states.standard then
+    if key == 'return' then
+      for idx = 1, #menu_options, 1 do
+        if menu_options[idx].is_hl then
+          menu_options[idx]:select_option()
+          break
+        end
+      end
+    elseif IS_DOWN_KEY(key) then
+      for idx = 1, #menu_options - 1, 1 do
+        if menu_options[idx].is_hl then
+          menu_options[idx]:shift_hl()
+          menu_options[idx + 1]:shift_hl()
+          break
+        end
+      end
+    elseif IS_UP_KEY(key) then
+      for idx = 2, #menu_options, 1 do
+        if menu_options[idx].is_hl then
+          menu_options[idx]:shift_hl()
+          menu_options[idx - 1]:shift_hl()
+          break
+        end
       end
     end
-  elseif IS_DOWN_KEY(key) then
-    for idx = 1, #menu_options - 1, 1 do
-      if menu_options[idx].is_hl then
-        menu_options[idx]:shift_hl()
-        menu_options[idx + 1]:shift_hl()
-        break
-      end
-    end
-  elseif IS_UP_KEY(key) then
-    for idx = 2, #menu_options, 1 do
-      if menu_options[idx].is_hl then
-        menu_options[idx]:shift_hl()
-        menu_options[idx - 1]:shift_hl()
-        break
-      end
-    end
-  end
-  if key == 'p' and menu.game_states.pause then
-    menu.change_state 'playing'
-  elseif key == 'p' then
-    menu.change_state 'pause'
   end
 end
 
