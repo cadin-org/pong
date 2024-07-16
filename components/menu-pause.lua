@@ -18,29 +18,27 @@ function menu_pause.draw()
 end
 
 function menu_pause.keypressed(key)
-  if menu.game_states.pause then
-    if key == 'return' then
-      for idx = 1, #menu_pause_options, 1 do
-        if menu_pause_options[idx].is_hl then
-          menu_pause_options[idx]:select_option()
-          break
-        end
+  if key == 'return' then
+    for idx = 1, #menu_pause_options, 1 do
+      if menu_pause_options[idx].is_hl then
+        menu_pause_options[idx]:select_option()
+        break
       end
-    elseif IS_DOWN_KEY(key) then
-      for idx = 1, #menu_pause_options - 1, 1 do
-        if menu_pause_options[idx].is_hl then
-          menu_pause_options[idx]:shift_hl()
-          menu_pause_options[idx + 1]:shift_hl()
-          break
-        end
+    end
+  elseif IS_DOWN_KEY(key) then
+    for idx = 1, #menu_pause_options - 1, 1 do
+      if menu_pause_options[idx].is_hl then
+        menu_pause_options[idx]:shift_hl()
+        menu_pause_options[idx + 1]:shift_hl()
+        break
       end
-    elseif IS_UP_KEY(key) then
-      for idx = 2, #menu_pause_options, 1 do
-        if menu_pause_options[idx].is_hl then
-          menu_pause_options[idx]:shift_hl()
-          menu_pause_options[idx - 1]:shift_hl()
-          break
-        end
+    end
+  elseif IS_UP_KEY(key) then
+    for idx = 2, #menu_pause_options, 1 do
+      if menu_pause_options[idx].is_hl then
+        menu_pause_options[idx]:shift_hl()
+        menu_pause_options[idx - 1]:shift_hl()
+        break
       end
     end
   end

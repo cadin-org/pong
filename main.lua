@@ -41,8 +41,6 @@ function love.load()
   love.graphics.setFont(fira_mono)
 
   splash.new(400, 400)
-
-  menu.load()
 end
 
 function love.update(dt)
@@ -62,7 +60,7 @@ function love.draw()
       menu.draw()
     elseif menu.game_states.pause then
       menu_pause.draw()
-    else
+    elseif menu.game_states.playing then
       love.graphics.printf('press "p" to pause the game', love.graphics.newFont(15), 0, 10, love.graphics.getWidth(), 'center')
       game_screen.draw()
       ball.draw()
