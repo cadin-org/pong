@@ -58,6 +58,10 @@ function love.draw()
   if time >= 0 then
     if menu.game_states.standard then
       menu.draw()
+      paddles[1].score = 0
+      paddles[2].score = 0
+      ball.x = love.graphics.getWidth() / 2
+      ball.y = love.graphics.getHeight() / 2
     elseif menu.game_states.pause then
       menu_pause.draw()
     elseif menu.game_states.playing then

@@ -10,7 +10,6 @@ menu.game_states = {
 }
 
 function menu.change_state(state)
-  print('Changing state to:', state)
   menu.game_states.standard = state == 'standard'
   menu.game_states.pause = state == 'pause'
   menu.game_states.playing = state == 'playing'
