@@ -6,13 +6,20 @@ menu.game_states = {
   standard = true,
   pause = false,
   playing = false,
+  playing_single = false,
   gameover = false,
 }
 
+menu.previous_state = nil
+
 function menu.change_state(state)
+  if state ~= 'pause' then
+    menu.previous_state = state
+  end
   menu.game_states.standard = state == 'standard'
   menu.game_states.pause = state == 'pause'
   menu.game_states.playing = state == 'playing'
+  menu.game_states.playing_single = state == 'single'
   menu.game_states.gameover = state == 'gameover'
 end
 
@@ -20,7 +27,7 @@ local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
 local menu_font = love.graphics.newFont(menu_font_path, 24)
 
 local menu_options = {
-  MenuOption:new('1 Player', menu_font, menu.change_state, 'standard', true),
+  MenuOption:new('1 Player', menu_font, menu.change_state, 'single', true),
   MenuOption:new('2 Players', menu_font, menu.change_state, 'playing', false),
   MenuOption:new('Exit', menu_font, love.event.quit, nil, false),
 }

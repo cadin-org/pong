@@ -9,7 +9,7 @@ function input.keypressed(key)
   elseif menu.game_states.standard then
     menu.keypressed(key)
   end
-  if key == 'p' and menu.game_states.playing then
+  if key == 'p' and (menu.game_states.playing or menu.game_states.playing_single) then
     menu.change_state 'pause'
   end
 end
