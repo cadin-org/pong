@@ -16,18 +16,16 @@ function menu.change_state(state)
   menu.game_states.gameover = state == 'gameover'
 end
 
-function menu.load()
-  local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
-  local menu_font = love.graphics.newFont(menu_font_path, 24)
+local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
+local menu_font = love.graphics.newFont(menu_font_path, 24)
 
-  menu_options = {
-    MenuOption:new('1 Player', menu_font, menu.change_state, 'playing', true),
-    MenuOption:new('2 Players', menu_font, menu.change_state, 'playing', false),
-    MenuOption:new('Exit', menu_font, love.event.quit, nil, false),
-  }
-end
+local menu_options = {
+  MenuOption:new('1 Player', menu_font, menu.change_state, 'standard', true),
+  MenuOption:new('2 Players', menu_font, menu.change_state, 'playing', false),
+  MenuOption:new('Exit', menu_font, love.event.quit, nil, false),
+}
 
-function love.keypressed(key)
+function menu.keypressed(key)
   if key == 'return' then
     for idx = 1, #menu_options, 1 do
       if menu_options[idx].is_hl then
