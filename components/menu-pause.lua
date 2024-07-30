@@ -6,7 +6,9 @@ local menu_pause = {}
 local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
 local menu_font = love.graphics.newFont(menu_font_path, 24)
 local menu_pause_options = {
-  Menu_option:new('Resume', menu_font, menu.change_state, 'playing', true),
+  Menu_option:new('Resume', menu_font, function()
+    menu.change_state(menu.previous_state)
+  end, nil, true),
   Menu_option:new('Main Menu', menu_font, menu.change_state, 'standard', false),
   Menu_option:new('Exit', menu_font, love.event.quit, nil, false),
 }
