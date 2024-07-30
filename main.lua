@@ -6,7 +6,6 @@ local ball = require 'components.ball'
 local scoreboard = require 'components.scoreboard'
 local menu_pause = require 'components.menu-pause'
 local handle_key_press = require 'utils.input'
-local paddle_cpu = require 'components.single-player'
 
 local paddles = {
   Paddle:new(0, (love.graphics.getHeight() / 2) - 50),
@@ -46,12 +45,12 @@ end
 
 function love.update(dt)
   if menu.game_states.playing then
-    paddles[1]:move('w', 's')
-    paddles[2]:move('up', 'down')
+    paddles[1]:player_move('w', 's')
+    paddles[2]:player_move('up', 'down')
     ball.move(paddles[1], paddles[2], dt)
   elseif menu.game_states.playing_single then
-    paddles[1]:move('w', 's')
-    paddle_cpu(paddles[2], ball)
+    paddles[1]:player_move('w', 's')
+    paddles[2]:cpu_move(ball)
     ball.move(paddles[1], paddles[2], dt)
   end
 end

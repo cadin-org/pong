@@ -10,11 +10,19 @@ function Paddle:new(x, y)
   return instance
 end
 
-function Paddle:move(up, down)
+function Paddle:player_move(up, down)
   if love.keyboard.isDown(up) and self.y > 40 then
     self.y = self.y - self.speed
   end
   if love.keyboard.isDown(down) and self.y < love.graphics.getHeight() - 100 then
+    self.y = self.y + self.speed
+  end
+end
+
+function Paddle:cpu_move(ball)
+  if ball.y < self.y + 50 and self.y > 40 then
+    self.y = self.y - self.speed
+  elseif ball.y > self.y + 50 and self.y < love.graphics.getHeight() - 100 then
     self.y = self.y + self.speed
   end
 end
