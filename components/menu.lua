@@ -2,41 +2,35 @@ local MenuOption = require 'components.menu-option'
 
 local menu = {}
 
-menu.game_states = {
-  standard = true,
-  pause = false,
-  playing = false,
-  playing_single = false,
-  gameover = false,
-}
-
-menu.previous_state = nil
-
-function menu.change_state(state)
-  if state ~= 'pause' then
-    menu.previous_state = state
-  end
-  menu.game_states.standard = state == 'standard'
-  menu.game_states.pause = state == 'pause'
-  menu.game_states.playing = state == 'playing'
-  menu.game_states.playing_single = state == 'single'
-  menu.game_states.gameover = state == 'gameover'
-end
-
 local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
 local menu_font = love.graphics.newFont(menu_font_path, 24)
 
-local menu_options = {
-  MenuOption:new('1 Player', menu_font, menu.change_state, 'single', true),
-  MenuOption:new('2 Players', menu_font, menu.change_state, 'playing', false),
-  MenuOption:new('Exit', menu_font, love.event.quit, nil, false),
-}
+function menu.load_main_options()
+  return {
+    MenuOption:new('1 Player', menu_font, 'change_mode', 'single_player', true),
+    MenuOption:new('2 Players', menu_font, 'change_mode', 'multiplayer', false),
+    MenuOption:new('Quit', menu_font, 'quit', nil, false),
+  }
+end
 
-function menu.keypressed(key)
+function menu.load_pause_options()
+  return {
+    MenuOption:new('Resume', menu_font, 'change_state', 'playing', true),
+    MenuOption:new('Restart', menu_font, 'new_game', nil, false),
+    MenuOption:new('Main Menu', menu_font, 'change_state', 'title_screen', false),
+    MenuOption:new('Quit', menu_font, 'quit', nil, false),
+  }
+end
+
+function menu.handle_input(menu_options, key)
   if key == 'return' then
     for idx = 1, #menu_options, 1 do
       if menu_options[idx].is_hl then
         menu_options[idx]:select_option()
+        if idx ~= 1 then
+          menu_options[1]:shift_hl()
+          menu_options[idx]:shift_hl()
+        end
         break
       end
     end
@@ -59,10 +53,13 @@ function menu.keypressed(key)
   end
 end
 
-function menu.draw()
-  menu_options[1]:draw(-2)
-  menu_options[2]:draw(0)
-  menu_options[3]:draw(2)
+function menu.draw(menu_options)
+  local pos_factor = 1 - #menu_options
+
+  for idx = 1, #menu_options, 1 do
+    menu_options[idx]:draw(pos_factor)
+    pos_factor = pos_factor + 2
+  end
 end
 
 return menu
