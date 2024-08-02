@@ -44,7 +44,16 @@ local function get_text_properties(text, font)
 end
 
 function MenuOption:select_option()
-  self.func(self.arg)
+  if self.func == 'quit' then
+    love.event.quit()
+  elseif self.func == 'new_game' then
+    NEW_GAME()
+  elseif self.func == 'change_mode' then
+    GAME_MODE = self.arg
+    NEW_GAME()
+  elseif self.func == 'change_state' then
+    GAME_STATE = self.arg
+  end
 end
 
 function MenuOption:draw(pos_factor)
