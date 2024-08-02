@@ -1,4 +1,4 @@
-local splash = require 'splash-screen'
+local splash = require 'libcadin.splash-screen'
 local Paddle = require 'components.paddle'
 local menu = require 'components.menu'
 local game_screen = require 'components.game-screen'
@@ -58,7 +58,7 @@ function love.load()
   local fira_mono = love.graphics.newFont(font_asset_path, 48)
   love.graphics.setFont(fira_mono)
 
-  splash.new(400, 400)
+  splash.load()
 end
 
 function love.update(dt)
@@ -76,9 +76,9 @@ end
 
 function love.draw()
   local time = love.timer.getTime()
-  -- splash.start(time)
+  splash.start(time)
 
-  if time >= 0 then
+  if time >= 12 then
     if GAME_STATE == 'title_screen' then
       menu.draw(MAIN_MENU)
     elseif GAME_STATE == 'pause_screen' then
