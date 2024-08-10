@@ -34,8 +34,8 @@ function IS_DOWN_KEY(key)
 end
 
 local paddles = {
-  Paddle:new(game_screen.pos_x, window.center.y - 50),
-  Paddle:new(game_screen.pos_x + game_screen.width - 20, window.center.y - 50),
+  Paddle:new(game_screen.pos_x0, window.center.y - 50),
+  Paddle:new(game_screen.pos_x1 - 20, window.center.y - 50),
 }
 
 function NEW_GAME()

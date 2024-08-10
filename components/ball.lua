@@ -22,23 +22,23 @@ local function paddles_collision(paddle1, paddle2)
 end
 
 local function wall_collision(paddle1, paddle2)
-  if ball.x < ball.size + game_screen.pos_x then
+  if ball.x < game_screen.pos_x0 + ball.size then
     ball.x = window.center.x
     ball.y = window.center.y
     ball.speed_x = -ball.speed_x
     paddle2.score = paddle2.score + 1
-  elseif ball.x > game_screen.pos_x + game_screen.width - ball.size then
+  elseif ball.x > game_screen.pos_x1 - ball.size then
     ball.x = window.center.x
     ball.y = window.center.y
     ball.speed_x = -ball.speed_x
     paddle1.score = paddle1.score + 1
   end
 
-  if ball.y < game_screen.pos_y + ball.size then
-    ball.y = game_screen.pos_y + ball.size
+  if ball.y < game_screen.pos_y0 + ball.size then
+    ball.y = game_screen.pos_y0 + ball.size
     ball.speed_y = -ball.speed_y
-  elseif ball.y > game_screen.pos_y + game_screen.height - ball.size then
-    ball.y = game_screen.pos_y + game_screen.height - ball.size
+  elseif ball.y > game_screen.pos_y1 - ball.size then
+    ball.y = game_screen.pos_y1 - ball.size
     ball.speed_y = -ball.speed_y
   end
 end

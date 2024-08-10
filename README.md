@@ -10,6 +10,12 @@ Make sure you have [LÖVE](https://love2d.org/) installed.
 
 Make sure to initialize and update the submodules:
 
-```sh
+```bash
 git submodule update --init --recursive
+```
+
+And to keep it up-to-date, run:
+
+```bash
+git submodule update --remote --merge
 ```
