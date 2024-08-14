@@ -1,7 +1,9 @@
-local splash = require 'splash-screen'
+local splash = require 'libcadin.splash-screen'
+local window = require 'libcadin.window'
+local game_screen = require 'libcadin.game-screen'
 local Paddle = require 'components.paddle'
 local menu = require 'components.menu'
-local game_screen = require 'components.game-screen'
+local playfield = require 'components.playfield'
 local ball = require 'components.ball'
 local scoreboard = require 'components.scoreboard'
 
@@ -32,17 +34,17 @@ function IS_DOWN_KEY(key)
 end
 
 local paddles = {
-  Paddle:new(0, (love.graphics.getHeight() / 2) - 50),
-  Paddle:new(love.graphics.getWidth() - 20, (love.graphics.getHeight() / 2) - 50),
+  Paddle:new(game_screen.pos_x0, window.center.y - 50),
+  Paddle:new(game_screen.pos_x1 - 20, window.center.y - 50),
 }
 
 function NEW_GAME()
   paddles[1].score = 0
   paddles[2].score = 0
-  paddles[1].y = (love.graphics.getHeight() / 2) - 50
-  paddles[2].y = (love.graphics.getHeight() / 2) - 50
-  ball.x = love.graphics.getWidth() / 2
-  ball.y = love.graphics.getHeight() / 2
+  paddles[1].y = window.center.y - 50
+  paddles[2].y = window.center.y - 50
+  ball.x = window.center.x
+  ball.y = window.center.y
 
   GAME_STATE = 'playing'
 end
@@ -58,7 +60,7 @@ function love.load()
   local fira_mono = love.graphics.newFont(font_asset_path, 48)
   love.graphics.setFont(fira_mono)
 
-  splash.new(400, 400)
+  splash.load()
 end
 
 function love.update(dt)
@@ -76,16 +78,16 @@ end
 
 function love.draw()
   local time = love.timer.getTime()
-  -- splash.start(time)
+  splash.start(time)
 
-  if time >= 0 then
+  if time >= 12 then
     if GAME_STATE == 'title_screen' then
       menu.draw(MAIN_MENU)
     elseif GAME_STATE == 'pause_screen' then
       menu.draw(PAUSE_MENU)
     elseif GAME_STATE == 'playing' then
-      love.graphics.printf('press "p" to pause the game', love.graphics.newFont(15), 0, 10, love.graphics.getWidth(), 'center')
-      game_screen.draw()
+      love.graphics.printf('press "p" to pause the game', love.graphics.newFont(15), 0, 100, window.width, 'center')
+      playfield.draw()
       ball.draw()
       paddles[1]:draw()
       paddles[2]:draw()
