@@ -1,4 +1,5 @@
 local game_screen = require 'libcadin.game-screen'
+local window = require 'libcadin.window'
 
 local Paddle = {}
 Paddle.__index = Paddle
@@ -8,6 +9,8 @@ function Paddle:new(x, y)
   instance.x = x
   instance.y = y
   instance.speed = 5
+  instance.last_sleep = 0
+  instance.sleeping = false
   instance.score = 0
   return instance
 end
@@ -21,61 +24,27 @@ function Paddle:player_move(up, down)
   end
 end
 
-local time_last_move = 2.5
-
-local function sleep_move(dt, ball, self)
-  local react_time = 3.1
-  local move_paddle = false
-  time_last_move = time_last_move + dt
-  if ball.x >= self.x - ball.size - 20 then
-    move_paddle = false
-    time_last_move = 0
-  elseif time_last_move >= react_time then
-    move_paddle = true
+function Paddle:cpu_move(ball, dt)
+  local dist_factor = math.ceil((self.x - ball.x))
+  local direction_factor = 1
+  if ball.speed_x > 0 then
+    direction_factor = 2
   end
-  return move_paddle
-end
+  local glitched = love.math.random(0, dist_factor * direction_factor) == 0
 
-local function predict_ball_pos(ball, self)
-  local time_until_intercept = math.abs((ball.x - self.x) / ball.speed_x)
-  return ball.y + ball.speed_y * time_until_intercept
-end
+  self.last_sleep = self.last_sleep + dt
 
-function Paddle:cpu_predict_move(ball)
-  local target_y = predict_ball_pos(ball, self) - 50
-  self.y = self.y + (target_y - self.y)
-end
-
-function Paddle:cpu_move(ball)
-  if ball.y < self.y + 50 and self.y > game_screen.pos_y0 then
-    self.y = self.y - self.speed
-  elseif ball.y > self.y + 50 and self.y < game_screen.pos_y1 - 100 then
-    self.y = self.y + self.speed
+  if glitched then
+    self.last_sleep = 0
+    self.sleeping = true
+  elseif self.last_sleep > 2 then
+    self.sleeping = false
   end
-end
 
-function Paddle:cpu_move_with_sleep(ball, dt)
-  if sleep_move(dt, ball, self) then
+  if not self.sleeping then
     if ball.y < self.y + 50 and self.y > game_screen.pos_y0 then
       self.y = self.y - self.speed
     elseif ball.y > self.y + 50 and self.y < game_screen.pos_y1 - 100 then
-      self.y = self.y + self.speed
-    end
-  end
-end
-
-local function intetional_error(ball)
-  local error_margin = 25
-  local y_error = love.math.random(-error_margin, error_margin)
-  return y_error
-end
-
-function Paddle:cpu_move_with_sleep_and_error(ball, dt)
-  if sleep_move(dt, ball, self) then
-    local target_y = ball.y + intetional_error(ball)
-    if target_y < self.y + 50 and self.y > game_screen.pos_y0 then
-      self.y = self.y - self.speed
-    elseif target_y > self.y + 50 and self.y < game_screen.pos_y1 - 100 then
       self.y = self.y + self.speed
     end
   end
