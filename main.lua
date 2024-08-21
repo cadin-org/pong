@@ -67,7 +67,7 @@ function love.update(dt)
   if GAME_STATE == 'playing' then
     if GAME_MODE == 'single_player' then
       paddles[1]:player_move('w', 's')
-      paddles[2]:cpu_move(ball, dt)
+      paddles[2]:cpu_move(ball)
     elseif GAME_MODE == 'multiplayer' then
       paddles[1]:player_move('w', 's')
       paddles[2]:player_move('up', 'down')

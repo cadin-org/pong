@@ -24,20 +24,21 @@ function Paddle:player_move(up, down)
   end
 end
 
-function Paddle:cpu_move(ball, dt)
-  local dist_factor = math.ceil((self.x - ball.x))
-  local direction_factor = 1
-  if ball.speed_x > 0 then
-    direction_factor = 2
-  end
-  local glitched = love.math.random(0, dist_factor * direction_factor) == 0
+function Paddle:cpu_move(ball)
+  local time = love.timer.getTime()
 
-  self.last_sleep = self.last_sleep + dt
+  local dist_factor = math.ceil(ball.x)
+  local direction_factor = 5
+  if ball.speed_x > 0 then
+    direction_factor = 1
+  end
+
+  local glitched = love.math.random(0, math.ceil(dist_factor / direction_factor)) == 0
 
   if glitched then
-    self.last_sleep = 0
+    self.last_sleep = time
     self.sleeping = true
-  elseif self.last_sleep > 2 then
+  elseif self.last_sleep + 0.2 < time then
     self.sleeping = false
   end
 
