@@ -78,9 +78,9 @@ end
 
 function love.draw()
   local time = love.timer.getTime()
-  splash.start(time)
+  -- splash.start(time)
 
-  if time >= 12 then
+  if time >= 0 then
     if GAME_STATE == 'title_screen' then
       menu.draw(MAIN_MENU)
     elseif GAME_STATE == 'pause_screen' then

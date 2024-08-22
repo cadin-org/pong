@@ -1,4 +1,5 @@
 local game_screen = require 'libcadin.game-screen'
+local window = require 'libcadin.window'
 
 local Paddle = {}
 Paddle.__index = Paddle
@@ -8,6 +9,8 @@ function Paddle:new(x, y)
   instance.x = x
   instance.y = y
   instance.speed = 5
+  instance.last_sleep = 0
+  instance.sleeping = false
   instance.score = 0
   return instance
 end
@@ -22,10 +25,29 @@ function Paddle:player_move(up, down)
 end
 
 function Paddle:cpu_move(ball)
-  if ball.y < self.y + 50 and self.y > game_screen.pos_y0 then
-    self.y = self.y - self.speed
-  elseif ball.y > self.y + 50 and self.y < game_screen.pos_y1 - 100 then
-    self.y = self.y + self.speed
+  local time = love.timer.getTime()
+
+  local dist_factor = math.ceil(ball.x)
+  local direction_factor = 5
+  if ball.speed_x > 0 then
+    direction_factor = 1
+  end
+
+  local glitched = love.math.random(0, math.ceil(dist_factor / direction_factor)) == 0
+
+  if glitched then
+    self.last_sleep = time
+    self.sleeping = true
+  elseif self.last_sleep + 0.2 < time then
+    self.sleeping = false
+  end
+
+  if not self.sleeping then
+    if ball.y < self.y + 50 and self.y > game_screen.pos_y0 then
+      self.y = self.y - self.speed
+    elseif ball.y > self.y + 50 and self.y < game_screen.pos_y1 - 100 then
+      self.y = self.y + self.speed
+    end
   end
 end
 
