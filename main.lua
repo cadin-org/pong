@@ -5,7 +5,6 @@ local Paddle = require 'components.paddle'
 local menu = require 'components.menu'
 local playfield = require 'components.playfield'
 local ball = require 'components.ball'
-local scoreboard = require 'components.scoreboard'
 
 -- single_player, multiplayer
 GAME_MODE = 'single_player'
@@ -86,12 +85,12 @@ function love.draw()
     elseif GAME_STATE == 'pause_screen' then
       menu.draw(PAUSE_MENU)
     elseif GAME_STATE == 'playing' then
-      love.graphics.printf('press "p" to pause the game', love.graphics.newFont(15), 0, 100, window.width, 'center')
-      playfield.draw()
+      game_screen.frame()
+      love.graphics.printf('press P to pause the game', love.graphics.newFont(15), 0, game_screen.pos_y1 + 20, window.width, 'center')
+      playfield.draw(paddles[1], paddles[2])
       ball.draw()
       paddles[1]:draw()
       paddles[2]:draw()
-      scoreboard.draw(paddles[1], paddles[2])
     end
   end
 end

@@ -16,10 +16,10 @@ function Paddle:new(x, y)
 end
 
 function Paddle:player_move(up, down)
-  if love.keyboard.isDown(up) and self.y > game_screen.pos_y0 then
+  if love.keyboard.isDown(up) and self.y - 5 > game_screen.pos_y0 then
     self.y = self.y - self.speed
   end
-  if love.keyboard.isDown(down) and self.y < game_screen.pos_y1 - 100 then
+  if love.keyboard.isDown(down) and self.y + 5 < game_screen.pos_y1 - 100 then
     self.y = self.y + self.speed
   end
 end
@@ -43,9 +43,9 @@ function Paddle:cpu_move(ball)
   end
 
   if not self.sleeping then
-    if ball.y < self.y + 50 and self.y > game_screen.pos_y0 then
+    if ball.y < self.y + 50 and self.y - 5 > game_screen.pos_y0 then
       self.y = self.y - self.speed
-    elseif ball.y > self.y + 50 and self.y < game_screen.pos_y1 - 100 then
+    elseif ball.y > self.y + 50 and self.y + 5 < game_screen.pos_y1 - 100 then
       self.y = self.y + self.speed
     end
   end
