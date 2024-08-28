@@ -1,9 +1,9 @@
 local catppuccin = require 'libcadin.catppuccin'
+local game_screen = require 'libcadin.game-screen'
+local menu = require 'libcadin.menu'
 local splash = require 'libcadin.splash-screen'
 local window = require 'libcadin.window'
-local game_screen = require 'libcadin.game-screen'
 local Paddle = require 'components.paddle'
-local menu = require 'components.menu'
 local playfield = require 'components.playfield'
 local ball = require 'components.ball'
 
@@ -12,26 +12,6 @@ GAME_MODE = 'single_player'
 
 -- title_screen, pause_screen, playing, gameover
 GAME_STATE = 'title_screen'
-
-function IS_UP_KEY(key)
-  local keys_table = { 'k', 'w', 'up' }
-  for _, up_key in pairs(keys_table) do
-    if key == up_key then
-      return true
-    end
-  end
-  return false
-end
-
-function IS_DOWN_KEY(key)
-  local keys_table = { 'j', 's', 'down' }
-  for _, down_key in pairs(keys_table) do
-    if key == down_key then
-      return true
-    end
-  end
-  return false
-end
 
 local paddles = {
   Paddle:new(game_screen.pos_x0, window.center.y - 50),
@@ -50,13 +30,16 @@ function NEW_GAME()
 end
 
 function love.load()
-  MAIN_MENU = menu.load_main_options()
-  PAUSE_MENU = menu.load_pause_options()
-
   love.graphics.setBackgroundColor(catppuccin.MANTLE)
+
+  local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
+  local menu_font = love.graphics.newFont(menu_font_path, 24)
+  MAIN_MENU = menu.multi_player_options(menu_font)
+  PAUSE_MENU = menu.pause_options(menu_font)
 
   local font_asset_path = 'assets/fonts/FiraMono-Medium.ttf'
   local fira_mono = love.graphics.newFont(font_asset_path, 48)
+
   love.graphics.setFont(fira_mono)
 
   splash.load()
