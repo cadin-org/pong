@@ -1,4 +1,5 @@
 local catppuccin = require 'libcadin.catppuccin'
+local fonts = require 'libcadin.fonts'
 local game_screen = require 'libcadin.game-screen'
 local menu = require 'libcadin.menu'
 local splash = require 'libcadin.splash-screen'
@@ -32,15 +33,10 @@ end
 function love.load()
   love.graphics.setBackgroundColor(catppuccin.MANTLE)
 
-  local menu_font_path = 'assets/fonts/PressStart2P-Regular.ttf'
-  local menu_font = love.graphics.newFont(menu_font_path, 24)
-  MAIN_MENU = menu.multi_player_options(menu_font)
-  PAUSE_MENU = menu.pause_options(menu_font)
+  MAIN_MENU = menu.multi_player_options()
+  PAUSE_MENU = menu.pause_options()
 
-  local font_asset_path = 'assets/fonts/FiraMono-Medium.ttf'
-  local fira_mono = love.graphics.newFont(font_asset_path, 48)
-
-  love.graphics.setFont(fira_mono)
+  love.graphics.setFont(fonts.ps2p_large)
 
   splash.load()
 end
@@ -70,7 +66,7 @@ function love.draw()
       menu.draw(PAUSE_MENU)
     elseif GAME_STATE == 'playing' then
       game_screen.frame()
-      love.graphics.printf('press P to pause the game', love.graphics.newFont(15), 0, game_screen.pos_y1 + 20, window.width, 'center')
+      love.graphics.printf('press P to pause the game', fonts.ps2p_small, 0, game_screen.pos_y1 + 20, window.width, 'center')
       playfield.draw(paddles[1], paddles[2])
       ball.draw()
       paddles[1]:draw()
